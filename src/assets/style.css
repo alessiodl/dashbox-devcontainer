@@ -16,12 +16,13 @@ body, html {
 #main-container {
     display: grid;
     grid-template-areas: 
-        "header header"
-        "map filters"
-        "map chart"
-        "map table";
-    grid-template-rows: 80px 50px 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+        "header header header"
+        "map filters filters"
+        "map kpi-1 kpi-2"
+        "map chart chart"
+        "map table table";
+    grid-template-rows: 80px 40px 70px 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     width: 100vw;
     height: 100vh;
     background-color: #f8f8f8;
@@ -58,10 +59,24 @@ body, html {
     margin: 0 8px 0 0;
 }
 
+.kpi-1 {
+    grid-area: kpi-1;
+    background: #fff;
+    border: 1px solid #D6EAF8;
+    margin: 0 0 0 0;
+}
+
+.kpi-2 {
+    grid-area: kpi-2;
+    background: #fff;
+    border: 1px solid #D6EAF8;
+    margin: 0 8px 0 0;
+}
+
 .chart-container {
     grid-area: chart;
     background: #fff;
-    /* border: 1px solid #D6EAF8;*/
+    border: 1px solid #D6EAF8;
     margin: 0 8px 0 0;
 }
 
