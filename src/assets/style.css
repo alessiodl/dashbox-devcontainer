@@ -53,21 +53,21 @@ body, html {
 
 .filters-container {
     grid-area: filters;
-    background: #fff;
-    border: 1px solid #D6EAF8;
+    /*  background: #fff;
+    border: 1px solid #D6EAF8;*/
     margin: 0 8px 0 0;
 }
 
 .chart-container {
     grid-area: chart;
     background: #fff;
-    border: 1px solid #D6EAF8;
+    /* border: 1px solid #D6EAF8;*/
     margin: 0 8px 0 0;
 }
 
 .table-container {
     grid-area: table;
     background: #fff;
-    border: 1px solid #D6EAF8;
+    /* border: 1px solid #D6EAF8;*/
     margin: 0 8px 8px 0;
 }
