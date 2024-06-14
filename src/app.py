@@ -1,10 +1,12 @@
 from dash import dash, Dash, html, dcc, _dash_renderer, callback, Output, Input
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
+from dash_iconify import DashIconify
 import dash_leaflet as dl
 import dash_ag_grid as dag
 import plotly.express as px
 import pandas as pd
+from datetime import date, datetime
 
 _dash_renderer._set_react_version('18.2.0')
 
@@ -12,10 +14,12 @@ _dash_renderer._set_react_version('18.2.0')
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminder_unfiltered.csv')
 
 # App definition
-app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP, "https://unpkg.com/@mantine/dates@7/styles.css"])
 
 # Gridded layout
 app.layout = dmc.MantineProvider(children=[
+    
+    # Grid container
     html.Div(id='main-container', children=[
         # Header section
         html.Div(className="header", children=[
@@ -29,21 +33,42 @@ app.layout = dmc.MantineProvider(children=[
         
         # Filters section
         html.Div(className="filters-container", children=[
-            # dcc.Dropdown(df.country.unique(), 'Italy', id='dropdown-selection')
-            dmc.Select(
-                radius=0,
-                size="sm", 
-                id="dropdown-selection",
-                value="Italy",
-                data=df.country.unique(),
-                # w=200,
-                # mb=10,
+            dmc.Grid(
+                children=[
+                    dmc.GridCol(
+                        dmc.Select(
+                            radius=0,
+                            size="sm", 
+                            id="dropdown-selection",
+                            value="Italy",
+                            data=df.country.unique(),
+                            w='full',
+                            searchable=True,
+                            placeholder="Choose Country",
+                            leftSection=DashIconify(icon="radix-icons:magnifying-glass"),
+                            rightSection=DashIconify(icon="radix-icons:chevron-down"),
+                        ),
+                        span=6,
+                        pr=0
+                    ),
+                    dmc.GridCol(
+                        dmc.DatePicker(
+                            w='full', 
+                            radius=0, 
+                            type="range", 
+                            numberOfColumns=2,
+                            placeholder="Date range",
+                            leftSection=DashIconify(icon="radix-icons:calendar")
+                        ),
+                        span=6
+                    ),
+                ]
             )
         ]),
         
         # KPI section
-        html.Div(className="kpi-1", children=["KPI 1"]),
-        html.Div(className="kpi-2", children=[]),
+        html.Div(className="kpi-1", children=[html.H3("KPI-1")]),
+        html.Div(className="kpi-2", children=[html.H3("KPI-2")]),
         
         # Chart section
         html.Div(className="chart-container", children=[
@@ -56,10 +81,16 @@ app.layout = dmc.MantineProvider(children=[
                 id="myGrid",
                 columnDefs= [{"field": x, } for x in df.columns],
                 rowData= df.to_dict('records'),
-                className="ag-theme-alpine",
+                className="ag-theme-material",
                 columnSize="sizeToFit",
-                dashGridOptions={"rowHeight": 30, "pagination": True},
-                style={"height":"100%"}
+                dashGridOptions={"rowHeight": 40, "pagination": True},
+                style={"height":"100%"},
+                getRowStyle={
+                    'styleConditions': [{
+                        'condition': 'params.node.rowIndex % 2 == 0',
+                        'style': {'backgroundColor': '#f5f5f5'}
+                    }]
+                }
             ),
         ])
     ])

@@ -3,6 +3,7 @@ dash-leaflet
 dash-ag-grid
 dash-bootstrap-components
 dash-mantine-components
+dash-iconify
 pandas
 geopandas
 gdal
