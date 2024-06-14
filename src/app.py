@@ -67,8 +67,12 @@ app.layout = dmc.MantineProvider(children=[
         ]),
         
         # KPI section
-        html.Div(className="kpi-1", children=[html.H3("KPI-1")]),
-        html.Div(className="kpi-2", children=[html.H3("KPI-2")]),
+        html.Div(className="kpi-1", children=[
+            dmc.Alert("Write name here...", title="Country", color="#023e8a", radius=0, h='100%', icon=DashIconify(icon="gis:search-country"))
+        ]),
+        html.Div(className="kpi-2", children=[
+            dmc.Alert("Write number here...", title="Population", color="#023e8a", radius=0, h='100%', icon=DashIconify(icon="material-symbols:query-stats-rounded"))
+        ]),
         
         # Chart section
         html.Div(className="chart-container", children=[
